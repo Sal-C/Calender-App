@@ -1,21 +1,16 @@
 var timeDisplay = $("#currentDay");
 var fetchTime = moment().format('dddd, MMMM Do');
-//var parsedValue= parseInt($(".textarea").attr("data-time"));
 var currentHour = parseInt(moment().format('HH'))
-console.log(currentHour)
-
-//console.log(parsedValue)
-//console.log(currentHour)
-//console.log($(this).attr("data-time"))
+var savedText = sessionStorage.getItem("textKey");
 
 $( document ).ready(function() {
     $(timeDisplay).text(fetchTime);
 
+    $("textarea").text(savedText);
+
     $(".textarea").each(function(index, value) {
-        // var parsedValue = (parseInt($(this).attr("data-time")));
-        // console.log(parsedValue)
         var parsedValue = parseInt(index)+9;
-        console.log(parsedValue)
+
         if (parsedValue === currentHour){
             $(this).addClass("present")
         }
@@ -25,8 +20,11 @@ $( document ).ready(function() {
         if (parsedValue > currentHour){
             $(this).addClass("future")
         }
-        
-        
       });
-   
 });
+
+$(".saveBtn").click(function() {
+    sessionStorage.setItem("textKey", $('.textarea').val());
+})
+
+console.log(sessionStorage.getItem("textKey"))
